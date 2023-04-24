@@ -1,5 +1,6 @@
 import random
 
+
 class RGBColor:
     def __init__(self, text_color=(0,0,0), bg_color=(255,255,255), outline_color=(0,0,0)):
         self.text_color = text_color
@@ -44,8 +45,8 @@ class RGBColor:
         return self.outline_color
     
     def is_legible(self):
-        # Calculate relative luminance of text color and background color
-        # For more information: https://www.w3.org/TR/WCAG20/#relativeluminancedef
+       ## Calculate relative luminance of text color and background color
+       ## For more information: https://www.w3.org/TR/WCAG20/#relativeluminancedef
         def calculate_luminance(color):
             r, g, b = color
             r_linear = r / 255.0 if r <= 10 else ((r / 255.0) ** 2.2)
@@ -53,7 +54,7 @@ class RGBColor:
             b_linear = b / 255.0 if b <= 10 else ((b / 255.0) ** 2.2)
             return 0.2126 * r_linear + 0.7152 * g_linear + 0.0722 * b_linear
         
-        # Compare relative luminance of text color and background color
+        ## Compare relative luminance of text color and background color
         text_luminance = calculate_luminance(self.text_color)
         bg_luminance = calculate_luminance(self.bg_color)
         if text_luminance > bg_luminance:
@@ -61,15 +62,5 @@ class RGBColor:
         else:
             contrast_ratio = (bg_luminance + 0.05) / (text_luminance + 0.05)
         
-        # Check if contrast ratio is sufficient for legibility
+        ##Check if contrast ratio is sufficient for legibility
         return contrast_ratio
-
-            
-def main() ->int:
-    colors = RGBColor ()    
-    
-
-    return 0
-
-if __name__ == '__main__':
-    sys.exit(main())

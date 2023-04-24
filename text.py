@@ -3,11 +3,12 @@ import time
 import sys
 import os
 
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/..'))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + './deps'))
+
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + './'))
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from rgbmatrix import graphics
-
-from rgb_color import RGBColor
+from . import RGBColor
 
 # Set up RGB matrix options
 options = RGBMatrixOptions()
