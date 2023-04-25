@@ -1,13 +1,16 @@
+#!python3
 import subprocess
 import sys
 import random
 import os
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + './'))
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + './deps'))
-from rgb_color import RGBColor
+from RGBColor import rgbcolor
 
 # Set directory where font files are located
 FONT_DIR = "/home/malonep/rpi-rgb-led-matrix/fonts"
+
+
 
 def get_font_file():
     # Get list of font files
@@ -31,7 +34,7 @@ def main():
     subprocess.call(["sudo", "killall", "-q", "-r", "clock"])
 
     # Create RGBColor object and randomize text color
-    text_color = RGBColor()
+    text_color = rgbcolor()
     text_color.randomize()
 
     # Start clock process with random text color and black background color
