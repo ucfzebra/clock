@@ -5,8 +5,8 @@ echo ${HOSTNAME}
 echo ${IP}
 while true
 do
-  sh ~/clock/scrolling.sh "${IP} ${HOSTNAME}"
-  sh ~/clock/clock.sh &
+  /bin/bash ~/clock/scrolling.sh "${IP} ${HOSTNAME}"
+  /bin/bash ~/clock/clock.sh &
   sleep 60s
   sudo killall -r clock
 done

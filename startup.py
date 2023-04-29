@@ -1,8 +1,9 @@
-#!python
+#!python3
 import subprocess
 import socket
 import time
 import sys
+
 
 def get_ip_address():
     # Get IP address
@@ -12,10 +13,12 @@ def get_ip_address():
     ip_address = output.strip()
     return ip_address
 
+
 def get_hostname():
     # Get hostname
     hostname = socket.gethostname() + ".local"
     return hostname
+
 
 def main():
     # Get IP address and hostname
@@ -26,10 +29,14 @@ def main():
     
     # Start clock and scrolling text
     while True:
-        subprocess.call(["python2", "~/clock/scrolling.py", "{} {}".format(ip_address, hostname)])
-        subprocess.call(["python2", "~/clock/clock.py"])
-        time.sleep(60)
-        subprocess.call(["sudo", "killall", "-r", "clock"])
+        subprocess.call([ "sudo","python3", "text.py", "{} {}".format(ip_address,
+                                                              hostname)])
+        subprocess.call(["sudo","python3", "clock.py"])
+        time.sleep(300)
+        subprocess.call(["sudo", "killall", "-qr", "clock"])
+
+    return
+
 
 if __name__ == "__main__":
     try:

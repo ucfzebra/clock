@@ -1,6 +1,6 @@
-export FONT="6x12.bdf"
+export FONT="9x15.bdf"
 ##export FONT="9x18B.bdf"
-export FONT_D="/home/malonep/rpi-rgb-led-matrix/fonts"
+export FONT_D="/home/malonep/clock/fonts"
 export FONT_P="${FONT_D}/${FONT}"
 if [ "${DEBUG}" == "1" ]; then
 	echo "FONT  = ${FONT}"
@@ -15,5 +15,6 @@ if [ -f "${FONT_P}" ]; then
            --led-no-hardware-pulse \
            --led-daemon \
              -d '%R' \
-             -C0,0,200 
+             -C0,0,200 \
+             -O127,0,0 
 fi

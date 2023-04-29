@@ -1,14 +1,11 @@
-#python2
+#!python3
 import time
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + './deps'))
-
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + './'))
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
+from samplebase import SampleBase
 from rgbmatrix import graphics
-from . import RGBColor
+from rgbcolor.RGBColor import RGBColor
 
 # Set up RGB matrix options
 options = RGBMatrixOptions()
@@ -19,40 +16,42 @@ options.parallel = 1
 options.hardware_mapping = 'adafruit-hat'
 matrix = RGBMatrix(options=options)
 
-# Set up RGBColor object for text, background, and outline colors
-color = RGBColor((255, 255, 255), (0, 0, 0), (0, 0, 0))
+# import random
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + './deps'))
+sys.path.append(os.path.abspath(os.path.dirname(__file__) + './'))
 
-# Create graphics object and set font
-font = graphics.Font()
-font.LoadFont("../../../fonts/5x8.bdf")
-text_graphics = graphics.Drawer(matrix)
 
-# Set up two lines of text to display
-line1 = "Hello world!"
-line2 = "This is a test."
+class RunText(SampleBase):
+    def __init__(self, *args, **kwargs):
+        super(RunText, self).__init__(*args, **kwargs)
+        self.parser.add_argument("-t", "--text",
+                                 help="The text to scroll on the RGB \
+                                    LED panel", default="Hello world!")
 
-# Set text positions and draw text
-x1 = 1
-y1 = 9
-x2 = 1
-y2 = 19
-text_graphics.SetFont(font)
-text_graphics.SetTextColor(*color.get_text_color())
-text_graphics.SetBackgroundColor(*color.get_bg_color())
-text_graphics.SetTextWrap(False)
+    def run(self):
+        offscreen_canvas = self.matrix.CreateFrameCanvas()
+        font = graphics.Font()
+        font.LoadFont("../../../fonts/7x13.bdf")
+        # Set up RGBColor object for text, background, and outline colors
+        color = RGBColor()
+        textColor = graphics.Color(*color.get_text_color)
+        pos = offscreen_canvas.width
+        my_text = self.args.text
 
-# Validate legibility of text and background colors
-if not color.is_legible():
-    sys.exit("Text color and background color do not have enough contrast to be legible.")
+        while True:
+            offscreen_canvas.Clear()
+            len = graphics.DrawText(offscreen_canvas, font, pos, 10,
+                                    textColor, my_text)
+            pos -= 1
+            if (pos + len < 0):
+                pos = offscreen_canvas.width
 
-# Draw first line of text with outline
-text_graphics.DrawText(x1, y1, color.get_outline_color(), line1)
-text_graphics.DrawText(x1, y1, color.get_text_color(), line1)
+            time.sleep(0.05)
+            offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
-# Draw second line of text with outline
-text_graphics.DrawText(x2, y2, color.get_outline_color(), line2)
-text_graphics.DrawText(x2, y2, color.get_text_color(), line2)
 
-# Wait for 5 seconds before clearing display
-time.sleep(5)
-matrix.Clear()
+# Main function
+if __name__ == "__main__":
+    run_text = RunText()
+    if (not run_text.process()):
+        run_text.print_help()

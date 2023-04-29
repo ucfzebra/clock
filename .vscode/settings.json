@@ -1,5 +1,7 @@
 {
     "python.analysis.extraPaths": [
-        "./deps"
+        "./deps",
+        "./rgb_color",
+        "./rgb_color"
     ]
 }

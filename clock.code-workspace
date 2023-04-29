@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "clock",
+			"path": "."
+		},
+		{
+			"name": "go-rpi-rgbmatrix",
+			"path": "deps/go-rpi-rgbmatrix"
+		},
+		{
+			"path": "../rpi-rgb-led-matrix"
+		}
+	],
+	"settings": {}
+}

@@ -1,9 +1,10 @@
-MESSAGE="${@}"
+export MESSAGE="${@}"
+export DEBUG="0"
 export FONT="6x12.bdf"
 ##export FONT="9x18B.bdf"
 export FONT_D="/home/malonep/rpi-rgb-led-matrix/fonts"
 export FONT_P="${FONT_D}/${FONT}"
-if [[ - e ${DEBUG} == 1 ]]; then
+if [ "${DEBUG}" == "1" ]; then
 	echo "FONT  = ${FONT}"
 	echo "FONT_D  = ${FONT_D}"
 	echo "FONT_P  = ${FONT_P}"
